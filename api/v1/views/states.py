@@ -16,7 +16,7 @@ def get_all():
     save_list = []
     result = storage.all(State)
     for values in result.values():
-        save_list.append(values.to_json())
+        save_list.append(values.to_dict())
 
     return jsonify(save_list), 200
 
@@ -32,7 +32,7 @@ def get_by_id(state_id):
     if result is None:
         abort(404)
     else:
-        return jsonify(result.to_json()), 200
+        return jsonify(result.to_dict()), 200
 
 # api delete route
 
@@ -74,7 +74,7 @@ def create():
     # create a new state instance with the params key, values
     new_state = State(**params_json)
     new_state.save()
-    return jsonify(new_state.to_json()), 201
+    return jsonify(new_state.to_dict()), 201
 
 
 @app_views.route("/states/state_id", methods=["PUT"], strict_slashes=False)
@@ -101,4 +101,4 @@ def put(state_id):
     # save the updated result
     result.save()
 
-    return jsonify(result.to_json()), 200
+    return jsonify(result.to_dict()), 200
