@@ -21,7 +21,7 @@ def get_all_users():
     return jsonify(users_list), 200
 
 
-@app_views.route("/users/<user_id>")
+@app_views.route("/users/<user_id>", methods=["GET"], strict_slashes=False)
 def get_users_id(user_id):
     """ get user by id
 
@@ -76,7 +76,7 @@ def create_user():
     return jsonify(new_user.to_dict()), 201
 
 
-@app_views.route("users/<user_id>", methods=["GET"], strict_slashes=False)
+@app_views.route("users/<user_id>", methods=["PUT"], strict_slashes=False)
 def update_user(user_id):
     """update a user
 
