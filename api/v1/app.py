@@ -21,7 +21,6 @@ def teardown_db(exception):
     """ Closes the storage """
     storage.close()
 
-
 if __name__ == '__main__':
     if getenv("HBNB_API_HOST") is None:
         HBNB_API_HOST = '0.0.0.0'
@@ -32,3 +31,7 @@ if __name__ == '__main__':
     else:
         HBNB_API_PORT = int(getenv("HBNB_API_PORT"))
     app.run(host=HBNB_API_HOST, port=HBNB_API_PORT, threaded=True)
+if __name__ == "__main__":
+    app.run(host=getenv('HBNB_API_HOST', '0.0.0.0'),
+            port=int(getenv('HBNB_API_PORT', '5000')),
+            threaded=True)
