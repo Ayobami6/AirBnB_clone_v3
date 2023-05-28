@@ -84,6 +84,7 @@ class FileStorage:
             matchstring = cls + '.' + id
             if k == matchstring:
                 return v
+        return None
 
     def count(self, cls=None):
         """count the number of objects in storage"""
