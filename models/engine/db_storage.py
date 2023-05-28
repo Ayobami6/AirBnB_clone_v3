@@ -90,7 +90,7 @@ class DBStorage:
             if k == matchstring:
                 return v
 
-        return None
+        return Nonee
 
     def count(self, cls=None):
         """count the number of objects in storage"""
