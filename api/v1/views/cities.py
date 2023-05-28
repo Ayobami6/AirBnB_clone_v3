@@ -10,7 +10,8 @@ from api.v1.views import app_views
 
 
 # read
-@app_views.route("/states/<state_id>/cities", methods=["GET"], strict_slashes=False)
+@app_views.route("/states/<state_id>/cities", methods=["GET"],
+                 strict_slashes=False)
 def get_all(state_id):
     """ gets all cities in a state
 
@@ -33,7 +34,8 @@ def get_all(state_id):
 # read
 
 
-@app_views.route("/cities/<city_id>", methods=["GET"], strict_slashes=False)
+@app_views.route("/cities/<city_id>", methods=["GET"],
+                 strict_slashes=False)
 def get_by_id(city_id):
     """ Gets city by id
 
@@ -71,7 +73,8 @@ def delete(city_id):
 
 
 # Create
-@app_views.route("/states/<state_id>/cities", methods=["POST"], strict_slashes=False)
+@app_views.route("/states/<state_id>/cities", methods=["POST"],
+                 strict_slashes=False)
 def create(state_id):
     """ adds new city instance entry
 
