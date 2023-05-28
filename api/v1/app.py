@@ -10,7 +10,7 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 # enable cors for all domains on all routes
-CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
+CORS(app, resources={r"/*": {"origins": "0.0.0.0"}})
 
 # register blueprint
 app.register_blueprint(app_views)
