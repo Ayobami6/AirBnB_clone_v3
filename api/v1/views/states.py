@@ -10,7 +10,7 @@ from api.v1.views import app_views
 
 # Get method for read
 @app_views.route("/states", methods=["GET"], strict_slashes=False)
-def get_all():
+def get_all_states():
     """Gets all states
     """
     save_list = []
@@ -22,7 +22,7 @@ def get_all():
 
 
 @app_views.route("/states/<state_id>", methods=["GET"], strict_slashes=False)
-def get_by_id(state_id):
+def get_states_id(state_id):
     """ Gets states by id
     """
     # get result for the class by its id using the
@@ -39,7 +39,7 @@ def get_by_id(state_id):
 
 @app_views.route("/states/<state_id>", methods=["DELETE"],
                  strict_slashes=False)
-def delete(state_id):
+def delete_state(state_id):
     """ deletes a state
 
     Args:
@@ -60,7 +60,7 @@ def delete(state_id):
 
 
 @app_views.route("/states", methods=["POST"], strict_slashes=False)
-def create():
+def create_state():
     """ Creates new state objects
     """
     # get dict params from post
@@ -78,7 +78,7 @@ def create():
 
 
 @app_views.route("/states/state_id", methods=["PUT"], strict_slashes=False)
-def put(state_id):
+def put_state(state_id):
     """ Updates a state
 
     Args:

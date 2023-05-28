@@ -9,7 +9,7 @@ from models.user import User
 
 @app_views.route("/users", methods=["GET"],
                  strict_slashes=False)
-def get_all():
+def get_all_users():
     """ get all users
     """
     users_list = []
@@ -22,7 +22,7 @@ def get_all():
 
 
 @app_views.route("/users/<user_id>")
-def get_by_id(user_id):
+def get_users_id(user_id):
     """ get user by id
 
     Args:
@@ -37,11 +37,11 @@ def get_by_id(user_id):
 
 
 @app_views.route("/users/<user_id>", methods=["DELETE"], strict_slashes=False)
-def delete(user_id):
+def delete_user(user_id):
     """ delete a user
 
     Args:
-        user_id (str): user id 
+        user_id (str): user id
     """
 
     user = storage.get("User", str(user_id))
@@ -56,7 +56,7 @@ def delete(user_id):
 
 
 @app_views.route("/users", methods=["POST"], strict_slashes=False)
-def create():
+def create_user():
     """creates a new user
     """
 
@@ -77,7 +77,7 @@ def create():
 
 
 @app_views.route("users/<user_id>", methods=["GET"], strict_slashes=False)
-def update(user_id):
+def update_user(user_id):
     """update a user
 
     Args:

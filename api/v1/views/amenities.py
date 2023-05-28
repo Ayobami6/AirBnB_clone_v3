@@ -10,7 +10,7 @@ from models.amenity import Amenity
 
 # get all
 @app_views.route("/amenities", methods=["GET"], strict_slashes=False)
-def get_all():
+def get_all_amenities():
     """ get all amenities
     """
 
@@ -26,7 +26,7 @@ def get_all():
 
 @app_views.route("/amenities/<amenity_id>", methods=["GET"],
                  strict_slashes=False)
-def get_by_id(amenity_id):
+def get_amenities_id(amenity_id):
     """ get amenity by id
 
     Args:
@@ -44,7 +44,7 @@ def get_by_id(amenity_id):
 
 @app_views.route("/amenities/<amenity_id>", methods=["DELETE"],
                  strict_slashes=False)
-def delete(amenity_id):
+def delete_amenities(amenity_id):
     """ delete an amenity
 
     Args:
@@ -64,7 +64,7 @@ def delete(amenity_id):
 
 @app_views.route("/amenities", methods=["POST"],
                  strict_slashes=False)
-def create():
+def create_amenities():
     """ create a amenity
     """
     # get params
@@ -85,7 +85,7 @@ def create():
 
 @app_views.route("/amenities/<amenity_id>", methods=["PUT"],
                  strict_slashes=False)
-def update(amenity_id):
+def update_amenities(amenity_id):
     """ update an amenity
 
     Args:
