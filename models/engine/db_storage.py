@@ -89,7 +89,6 @@ class DBStorage:
             matchstring = cls + '.' + id
             if k == matchstring:
                 return v
-
         return None
 
     def count(self, cls=None):
