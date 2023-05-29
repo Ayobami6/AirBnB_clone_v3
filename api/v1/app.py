@@ -55,7 +55,9 @@ def create_place(city_id):
         abort(400, 'Missing name')
     city = get_object_by_id(City, city_id)
     user = get_object_by_id(User, data['user_id'])
-    new_place = Place(name=data['name'], user_id=data['user_id'], city_id=city_id)
+    new_place = Place(name=data['name'],
+                      user_id=data['user_id'],
+                      city_id=city_id)
     storage.new(new_place)
     storage.save()
     return jsonify(new_place.to_dict()), 201
@@ -69,9 +71,9 @@ def updates_place(place_id):
     if not data:
         abort(400, 'Not a JSON')
     for key, value in data.items():
-        if key == 'name' or key == 'description' or key == 'number_rooms' \
-                or key == 'number_bathrooms' or key == 'max_guest' \
-                or key == 'price_by_night' or key == 'latitude' or key == 'longitude':
+        if key == 'name' or key == 'description' or key == 'number_rooms' or \
+           key == 'number_bathrooms' or key == 'max_guest' or \
+           key == 'price_by_night' or key == 'latitude' or key == 'longitude':
             setattr(place, key, value)
     storage.save()
     return jsonify(place.to_dict()), 200
