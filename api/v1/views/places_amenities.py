@@ -10,7 +10,7 @@ from models import storage
                  strict_slashes=False)
 def get_amenities(place_id):
     """ return amenities """
-    place = storage.get("Place", place_id)
+    place = storage.get("Place", str(place_id))
     if place is None:
         abort(404)
     amenities = [amenity.to_dict() for amenity in place.amenities]
@@ -27,17 +27,17 @@ def delete_amenity(place_id, amenity_id):
     Args:
         amenity_id (str):amenity id to delete
     """
-    place = storage.get("Place", place_id)
+    place = storage.get("Place", str(place_id))
     if not place:
         abort(404)
-    amenity = storage.get("Amenity", amenity_id)
+    amenity = storage.get("Amenity", str(amenity_id))
     if not amenity:
         abort(404)
     if amenity not in place.amenities:
         abort(404)
     # remove amenity from place
     place.amenities.remove(amenity)
-    storage.save()
+    place.save()
     return jsonify({}), 200
 
 
@@ -50,10 +50,10 @@ def link_amenity(place_id, amenity_id):
     Args:
         amenity_id (str):amenity id to link
     """
-    place = storage.get("Place", place_id)
+    place = storage.get("Place", str(place_id))
     if not place:
         abort(404)
-    amenity = storage.get("Amenity", amenity_id)
+    amenity = storage.get("Amenity", str(amenity_id))
     if not amenity:
         abort(404)
     # if amenity already linked to place
@@ -61,5 +61,5 @@ def link_amenity(place_id, amenity_id):
         return jsonify(amenity.to_dict()), 200
     # add amenity to place
     place.amenities.append(amenity)
-    storage.save()
+    place.save()
     return jsonify(amenity.to_dict()), 201

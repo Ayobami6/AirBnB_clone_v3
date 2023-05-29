@@ -4,13 +4,14 @@
 from api.v1.views import app_views
 from flask import jsonify, abort, request
 from models import storage
+from models.review import Review
 
 
 @app_views.route('/places/<place_id>/reviews', methods=['GET'],
                  strict_slashes=False)
 def get_reviews(place_id):
     """ return reviews """
-    place = storage.get("Place", place_id)
+    place = storage.get("Place", str(place_id))
     if place is None:
         abort(404)
     reviews = [review.to_dict() for review in place.reviews]
@@ -22,7 +23,7 @@ def get_reviews(place_id):
 @app_views.route('/reviews/<review_id>', methods=['GET'], strict_slashes=False)
 def get_review_id(review_id):
     """ return review by id """
-    review = storage.get("Review", review_id)
+    review = storage.get("Review", str(review_id))
     if review is None:
         abort(404)
     return jsonify(review.to_dict()), 200
@@ -38,7 +39,7 @@ def delete_review(review_id):
     Args:
         review_id (str):review id to delete
     """
-    review = storage.get("Review", review_id)
+    review = storage.get("Review", str(review_id))
     if not review:
         abort(404)
     storage.delete(review)
@@ -54,7 +55,7 @@ def post_review(place_id):
     Args:
         place_id (str): place id to create review for
     """
-    place = storage.get("Place", place_id)
+    place = storage.get("Place", str(place_id))
     if not place:
         abort(404)
     params_json = request.get_json()
@@ -69,7 +70,8 @@ def post_review(place_id):
         abort(404)
     review = request.get_json()
     review["place_id"] = place_id
-    review = storage.create("Review", **review)
+    review = Review(**review)
+    review.save()
     return jsonify(review.to_dict()), 201
 
 # update a review by id
@@ -82,7 +84,7 @@ def update_review(review_id):
     Args:
         review_id (str): review id to update
     """
-    review = storage.get("Review", review_id)
+    review = storage.get("Review", str(review_id))
     if not review:
         abort(404)
     params_json = request.get_json()
@@ -92,5 +94,5 @@ def update_review(review_id):
         if key not in ["id", "user_id", "place_id", "created_at",
                        "updated_at"]:
             setattr(review, key, value)
-    storage.save()
+    review.save()
     return jsonify(review.to_dict()), 200

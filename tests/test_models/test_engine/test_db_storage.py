@@ -72,23 +72,43 @@ test_db_storage.py'])
             self.assertTrue(len(func[1].__doc__) >= 1,
                             "{:s} method needs a docstring".format(func[0]))
 
-    def test_get(self):
-        # Check for valid class and ID
-        obj_1 = SomeClass(id=1)
-        self.dictionary = {1: obj_1}
-        self.assertEqual(self.get(SomeClass, 1), obj_1)
+    def test_get_none(self):
+        """ Test get method """
+        storage = DBStorage()
+        # test for none
+        param_err = storage.get("State", "123")
+        self.assertIsNone(param_err)
+        param_err = storage.get("State", "12.33")
+        self.assertIsNone(param_err)
+        param_err = storage.get("State", "123")
+        self.assertIsNone(param_err)
 
-        # Check for invalid class and ID
-        self.assertIsNone(self.get(None, None))
+    def test_get_correct(self):
+        """ Test get method """
+        # Test for correct object
+        storage = DBStorage()
+        state = State(name="Alabama")
+        alabama_id = state.id
+        state.save()
+        state = storage.get("State", alabama_id)
+        self.assertEqual(state.name, "Alabama")
+        self.assertEqual(state.id, alabama_id)
 
-        # Check for invalid ID
-        self.assertIsNone(self.get(SomeClass, None))
-
-        # Check for non-existent ID
-        self.assertIsNone(self.get(SomeClass, 2))
-
-        # Check for correct return type
-        self.assertIsInstance(self.get(SomeClass, 1), SomeClass)
+    def test_count(self):
+        """ Test count method """
+        if os.getenv("HBNB_TYPE_STORAGE") == "db":
+            storage = DBStorage()
+            # Test for count
+            count = storage.count()
+            self.assertEqual(count, 0)
+            state = State(name="Alabama")
+            state.save()
+            count = storage.count()
+            self.assertEqual(count, 1)
+            state = State(name="California")
+            state.save()
+            count = storage.count()
+            self.assertEqual(count, 2)
 
 
 class TestFileStorage(unittest.TestCase):
