@@ -71,19 +71,12 @@ class FileStorage:
         self.reload()
 
     def get(self, cls, id):
-        """
-        gets a particular object
-        Arguements:
-            cls (str): class name
-            id (str): object ID
-        Returns:
-            the object based on class name and its ID
-        """
-        obj_dict = models.storage.all(cls)
-        for k, v in obj_dict.items():
-            matchstring = cls + '.' + id
-            if k == matchstring:
-                return v
+        """retrieve one object"""
+        if cls is None or id is None:
+            return None
+        for obj in self.all(cls).values():
+            if obj.id == id:
+                return obj
         return None
 
     def count(self, cls=None):
