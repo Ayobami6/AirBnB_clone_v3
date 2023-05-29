@@ -19,8 +19,8 @@ def get_amenities(place_id):
 # delete amenity from place
 
 
-@app.route('/places/<place_id>/amenities/<amenity_id>', methods=['DELETE'],
-           strict_slashes=False)
+@app_views.route('/places/<place_id>/amenities/<amenity_id>',
+                 methods=['DELETE'], strict_slashes=False)
 def delete_amenity(place_id, amenity_id):
     """ Deletes a amenity object
 
@@ -42,8 +42,8 @@ def delete_amenity(place_id, amenity_id):
 
 
 # link amenity to place
-@app.route('/places/<place_id>/amenities/<amenity_id>', methods=['POST'],
-           strict_slashes=False)
+@app_views.route('/places/<place_id>/amenities/<amenity_id>', methods=['POST'],
+                 strict_slashes=False)
 def link_amenity(place_id, amenity_id):
     """ Link a amenity object
 
